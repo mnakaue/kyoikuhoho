@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>教職課程のための生成AI入門：チャレンジ編</title>
+<style>
+/**
+Markdownをhtmlレンダリングしたものに適用するスタイルシート
+ */
+
+/* 基本変数 - 拡張版 */
+:root {
+  /* 背景色と基本テキスト */
+  --claude-bg: #fafafa;
+  --claude-text: #141414;
+  --claude-text-secondary: #5a5a5a;
+  --claude-text-tertiary: #757575;
+  
+  /* 境界線と区切り */
+  --claude-border: #e1e1e1;
+  --claude-border-light: #efefef;
+  --claude-border-focus: #c8c8c8;
+  
+  /* コード関連 */
+  --claude-code-bg: #f3f3f3;
+  --claude-code-border: #e5e5e5;
+  --claude-pre-bg: #f8f8fa;
+  
+  /* コンテナとメッセージ */
+  --claude-light-bg: #ffffff;
+  --claude-message-bg: #ffffff;
+  --claude-message-shadow: rgba(0, 0, 0, 0.05);
+  
+  /* ブロック要素 */
+  --claude-blockquote-bg: #f3f3f3;
+  --claude-table-header-bg: #f5f5f5;
+  --claude-table-row-alt: #fafafa;
+  
+  /* アクセント色 */
+  --claude-link: #5d60ef;
+  --claude-hover: #4a4dde;
+  --claude-active: #3a3dc8;
+  --claude-focus: #6366f1;
+  
+  /* 状態色 */
+  --claude-success: #0d9488;
+  --claude-warning: #ca8a04;
+  --claude-error: #dc2626;
+  --claude-info: #2563eb;
+  
+  /* シンタックスハイライト */
+  --claude-syntax-keyword: #cf222e;
+  --claude-syntax-entity: #6639ba;
+  --claude-syntax-constant: #0550ae;
+  --claude-syntax-string: #0a3069;
+  --claude-syntax-variable: #8a4600;
+  --claude-syntax-comment: #6e7781;
+  --claude-syntax-tag: #116329;
+  --claude-syntax-attribute: #0550ae;
+  
+  /* フォント設定 */
+  --claude-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --claude-font-code: "SF Mono", "SFMono-Regular", Consolas, "DejaVu Sans Mono", "Liberation Mono", Menlo, Courier, monospace;
+  --claude-font-size-base: 16px;
+  --claude-font-size-sm: 14px;
+  --claude-font-size-xs: 12px;
+  --claude-font-size-lg: 18px;
+  --claude-font-size-xl: 20px;
+  --claude-font-size-2xl: 24px;
+  --claude-letter-spacing: -0.01em;
+  --claude-letter-spacing-tight: -0.02em;
+  --claude-letter-spacing-wide: 0.01em;
+}
+
+/* Webフォントの読み込み - 拡張版 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* 基本スタイル */
+body {
+  font-family: var(--claude-font-primary);
+  font-size: var(--claude-font-size-base);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: var(--claude-letter-spacing);
+  color: var(--claude-text);
+  background-color: var(--claude-bg);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* メインコンテンツ */
+.claude-markdown-content {
+  background-color: var(--claude-message-bg);
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px var(--claude-message-shadow);
+  font-feature-settings: "liga" 1, "calt" 1;
+}
+
+/* 見出し - フォント調整強化 */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  line-height: 1.2;
+  font-family: var(--claude-font-primary);
+  letter-spacing: var(--claude-letter-spacing-tight);
+  color: var(--claude-text);
+}
+
+h1 { 
+  font-size: var(--claude-font-size-2xl); 
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+h2 { 
+  font-size: var(--claude-font-size-xl); 
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+h3 { 
+  font-size: var(--claude-font-size-lg); 
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+h4 { 
+  font-size: var(--claude-font-size-base);
+  font-weight: 600;
+}
+
+h5 { 
+  font-size: var(--claude-font-size-base);
+  font-weight: 500;
+}
+
+h6 { 
+  font-size: var(--claude-font-size-sm);
+  font-weight: 500;
+  color: var(--claude-text-secondary);
+}
+
+/* 段落 - 精密調整 */
+p {
+  margin-bottom: 0.8em;
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: var(--claude-letter-spacing);
+  color: var(--claude-text);
+  font-size: var(--claude-font-size-base);
+}
+
+/* リンク - 状態の詳細化 */
+a {
+  color: var(--claude-link);
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+a:hover {
+  color: var(--claude-hover);
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--claude-active);
+}
+
+a:focus {
+  color: var(--claude-focus);
+  outline: 2px solid rgba(93, 96, 239, 0.3);
+  outline-offset: 2px;
+}
+
+/* リスト */
+ul, ol {
+  margin-bottom: 0.8em;
+  padding-left: 2em;
+  line-height: 1.4;
+}
+
+li {
+  margin-bottom: 0.3em;
+  letter-spacing: var(--claude-letter-spacing);
+}
+
+/* ネストされたリスト */
+li > ul, li > ol {
+  margin-top: 0.3em;
+  margin-bottom: 0;
+}
+
+/* 引用ブロック - 精密調整 */
+blockquote {
+  border-left: 3px solid var(--claude-border);
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.6em 1em;
+  color: var(--claude-text-secondary);
+  background-color: var(--claude-blockquote-bg);
+  border-radius: 0 4px 4px 0;
+  font-size: var(--claude-font-size-base);
+  line-height: 1.4;
+  letter-spacing: var(--claude-letter-spacing);
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* コードブロック - 強化版 */
+pre {
+  background-color: var(--claude-pre-bg);
+  border: 1px solid var(--claude-code-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 1em 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+  position: relative;
+  font-family: var(--claude-font-code);
+}
+
+code {
+  font-family: var(--claude-font-code);
+  font-size: 0.9em;
+  background-color: var(--claude-code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  letter-spacing: var(--claude-letter-spacing-tight);
+  color: var(--claude-text);
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+  tab-size: 4;
+  hyphens: none;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+}
+
+/* シンタックスハイライト - 詳細カラースキーム */
+.highlight .keyword, 
+.highlight .k,
+.highlight .kd,
+.highlight .kn {
+  color: var(--claude-syntax-keyword);
+}
+
+.highlight .function,
+.highlight .nf,
+.highlight .nx,
+.highlight .nc {
+  color: var(--claude-syntax-entity);
+}
+
+.highlight .constant,
+.highlight .o,
+.highlight .mi,
+.highlight .mf,
+.highlight .bp,
+.highlight .no {
+  color: var(--claude-syntax-constant);
+}
+
+.highlight .string,
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sr {
+  color: var(--claude-syntax-string);
+}
+
+.highlight .variable,
+.highlight .n,
+.highlight .nb {
+  color: var(--claude-syntax-variable);
+}
+
+.highlight .comment,
+.highlight .c,
+.highlight .c1,
+.highlight .cm {
+  color: var(--claude-syntax-comment);
+  font-style: italic;
+}
+
+.highlight .tag,
+.highlight .nt {
+  color: var(--claude-syntax-tag);
+}
+
+.highlight .attr,
+.highlight .na {
+  color: var(--claude-syntax-attribute);
+}
+
+/* Claudeコードブロック - 精密調整 */
+.claude-code {
+  position: relative;
+  background-color: var(--claude-pre-bg);
+  border-radius: 8px;
+  margin: 0.8em 0;
+}
+
+/* 言語タグ表示 */
+.code-language-tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2px 8px;
+  background-color: rgba(0,0,0,0.06);
+  color: var(--claude-text-tertiary);
+  border-radius: 0 6px 0 4px;
+  font-size: var(--claude-font-size-xs);
+  font-family: var(--claude-font-primary);
+  font-weight: 500;
+}
+
+/* テーブル関連 - 列幅を内容に応じて調整するよう修正 */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.8em;
+  table-layout: auto; /* 内容に応じた列幅にするため fixed から auto に変更 */
+  overflow-x: auto;
+  page-break-inside: avoid;
+  font-size: var(--claude-font-size-sm);
+  line-height: 1.3;
+  border: 1px solid var(--claude-border);
+}
+
+/* テーブルコンテナ（横スクロール対応） */
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+  margin-bottom: 0.8em;
+  border-radius: 6px;
+  border: 1px solid var(--claude-border);
+}
+
+.table-container table {
+  border: none;
+  margin-bottom: 0;
+}
+
+/* テーブルのセル */
+th, td {
+  border: 1px solid var(--claude-border);
+  padding: 6px 8px;
+  text-align: left;  /* すべて左揃えに統一 */
+  line-height: 1.3;
+  vertical-align: top;
+  word-break: normal;
+  overflow-wrap: break-word;
+  white-space: normal; /* テキストの折り返しを許可 */
+  min-width: 2em; /* セルの最小幅を設定 */
+}
+
+/* 数値データのセル用スタイル - 左揃えに修正 */
+td.numeric {
+  text-align: left;  /* 右揃えから左揃えに変更 */
+  white-space: normal; /* 折り返し設定を一般のセルと同じに */
+}
+
+/* テーブルのヘッダー */
+th {
+  background-color: var(--claude-table-header-bg);
+  font-weight: 600;
+  color: var(--claude-text);
+  font-size: var(--claude-font-size-sm);
+  letter-spacing: var(--claude-letter-spacing-tight);
+  position: sticky;
+  top: 0;
+  white-space: normal; /* ヘッダーテキストの折り返しを許可 */
+}
+
+/* テーブルの偶数行 */
+tr:nth-child(even) {
+  background-color: var(--claude-table-row-alt);
+}
+
+/* テーブルホバー効果 */
+tr:hover {
+  background-color: rgba(0,0,0,0.02);
+}
+
+/* 画像 */
+img {
+  max-width: 100%;
+  height: auto;
+  page-break-inside: avoid;
+  border-radius: 4px;
+  display: block;
+  margin: 1em auto;
+}
+
+/* 水平線 */
+hr {
+  border: 0;
+  border-top: 1px solid var(--claude-border);
+  margin: 1.5em 0;
+  height: 1px;
+}
+
+/* 選択テキスト */
+::selection {
+  background-color: rgba(93, 96, 239, 0.15);
+  color: var(--claude-text);
+}
+
+/* 印刷ボタン */
+.print-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  background-color: var(--claude-link);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--claude-font-primary);
+  font-weight: 500;
+  font-size: var(--claude-font-size-sm);
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background-color 0.15s ease;
+}
+
+.print-button:hover {
+  background-color: var(--claude-hover);
+}
+
+.print-button:active {
+  background-color: var(--claude-active);
+  transform: translateY(1px);
+}
+
+/* 小さなコンポーネント */
+small, .text-small {
+  font-size: var(--claude-font-size-xs);
+  line-height: 1.4;
+  color: var(--claude-text-secondary);
+}
+
+/* 太字のスタイルを強化 */
+strong, b {
+  font-weight: 700; /* 600から700に変更してより太く */
+  color: var(--claude-text); /* 確実に基本テキスト色を使用 */
+}
+
+em, i {
+  font-style: italic;
+}
+
+/* キーボードキー表示 */
+kbd {
+  font-family: var(--claude-font-code);
+  background-color: var(--claude-code-bg);
+  border: 1px solid var(--claude-border);
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+  padding: 0.1em 0.4em;
+  font-size: var(--claude-font-size-xs);
+  line-height: 1;
+}
+
+/* 数式表示 - MathJax互換性 */
+.math {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.math-inline {
+  display: inline-block;
+  margin: 0 0.15em;
+  vertical-align: middle;
+}
+
+.math-display {
+  display: block;
+  margin: 0.8em 0;
+  text-align: center;
+}
+
+/* Claude風のボックス用スタイル */
+.claude-box {
+  background-color: #f3f3f3;
+  border: 1px solid var(--claude-border);
+  border-radius: 6px;
+  padding: 16px;
+  margin: 0.8em 0;
+  position: relative;
+  font-family: var(--claude-font-primary);
+  font-size: var(--claude-font-size-base);
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
+
+/* コピーボタン */
+.claude-box-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  background-color: var(--claude-light-bg);
+  color: var(--claude-text-secondary);
+  border: 1px solid var(--claude-border);
+  border-radius: 4px;
+  font-size: var(--claude-font-size-xs);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.claude-box-copy:hover {
+  background-color: var(--claude-link);
+  color: white;
+  border-color: var(--claude-link);
+}
+
+.claude-box-copy:active {
+  transform: translateY(1px);
+}
+
+/* 印刷スタイル */
+@media print {
+  body {
+    max-width: 100%;
+    margin: 0;
+    padding: 0.5cm;
+    font-size: 12pt;
+    background-color: white !important;
+    color: black !important;
+    width: 21cm; /* A4幅 */
+  }
+  
+  .claude-markdown-content {
+    background-color: white !important;
+    box-shadow: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  pre, code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9 !important;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: underline;
+  }
+  
+  @page {
+    size: A4;
+    margin: 1cm;
+  }
+  
+  .no-print { 
+    display: none; 
+  }
+  
+  /* 印刷時の改ページ制御 */
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  p, blockquote, ul, ol, dl, pre {
+    page-break-inside: avoid;
+  }
+  
+  .page-break {
+    page-break-before: always;
+  }
+
+  table, figure, img {
+    page-break-inside: avoid;
+  }
+}
+
+/* ダークモードサポート - 色調整 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --claude-bg: #141414;
+    --claude-text: #e8e8e8;
+    --claude-text-secondary: #b0b0b0;
+    --claude-text-tertiary: #909090;
+    --claude-border: #3a3a3a;
+    --claude-border-light: #333333;
+    --claude-border-focus: #4d4d4d;
+    --claude-code-bg: #222222;
+    --claude-code-border: #3a3a3a;
+    --claude-link: #818cff;
+    --claude-hover: #9ca3ff;
+    --claude-active: #6a77ff;
+    --claude-focus: #8e96ff;
+    --claude-pre-bg: #222222;
+    --claude-message-bg: #1d1d1d;
+    --claude-message-shadow: rgba(0, 0, 0, 0.2);
+    --claude-blockquote-bg: #242424;
+    --claude-table-header-bg: #2a2a2a;
+    --claude-table-row-alt: #242424;
+    
+    /* ダークモードシンタックスハイライト */
+    --claude-syntax-keyword: #ff7b72;
+    --claude-syntax-entity: #d2a8ff;
+    --claude-syntax-constant: #79c0ff;
+    --claude-syntax-string: #a5d6ff;
+    --claude-syntax-variable: #ffa657;
+    --claude-syntax-comment: #8b949e;
+    --claude-syntax-tag: #7ee787;
+    --claude-syntax-attribute: #79c0ff;
+  }
+  
+  body {
+    color: var(--claude-text);
+    background-color: var(--claude-bg);
+  }
+  
+  /* ダークモードでの選択テキスト */
+  ::selection {
+    background-color: rgba(129, 140, 255, 0.25);
+    color: var(--claude-text);
+  }
+  
+  /* テーブルのダークモード調整 */
+  th {
+    background-color: var(--claude-table-header-bg);
+    color: var(--claude-text);
+  }
+  
+  tr:nth-child(even) {
+    background-color: var(--claude-table-row-alt);
+  }
+  
+  tr:hover {
+    background-color: rgba(255,255,255,0.03);
+  }
+  
+  blockquote {
+    color: var(--claude-text-secondary);
+    background-color: var(--claude-blockquote-bg);
+  }
+  
+  code {
+    color: var(--claude-text);
+    background-color: var(--claude-code-bg);
+  }
+  
+  /* ダークモードでの画像調整 - より優しい */
+  img {
+    opacity: 0.9;
+    filter: brightness(0.95);
+  }
+  
+  /* ダークモードでのClaude風ボックスの調整 */
+  .claude-box {
+    background-color: #242424;
+    border-color: var(--claude-border);
+  }
+  
+  .claude-box-copy {
+    background-color: var(--claude-message-bg);
+    color: var(--claude-text-secondary);
+    border-color: var(--claude-border);
+  }
+  
+  .claude-box-copy:hover {
+    background-color: var(--claude-link);
+    color: white;
+    border-color: var(--claude-link);
+  }
+}
+    </style>
+<script>
+        function copyClaudeBox(id) {
+            const box = document.getElementById(`claude-box-${id}`);
+            const preText = box.querySelector('pre').innerText;
+            
+            // テキストをクリップボードにコピー
+            navigator.clipboard.writeText(preText).then(() => {
+                // コピー成功表示
+                const copyBtn = box.querySelector('.claude-box-copy');
+                const originalText = copyBtn.innerText;
+                copyBtn.innerText = 'コピー完了';
+                copyBtn.style.backgroundColor = 'var(--claude-success)';
+                copyBtn.style.color = 'white';
+                
+                // 2秒後に元に戻す
+                setTimeout(() => {
+                    copyBtn.innerText = originalText;
+                    copyBtn.style.backgroundColor = '';
+                    copyBtn.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('コピーに失敗しました:', err);
+                alert('コピーに失敗しました。');
+            });
+        }
+    </script>
+</head>
+<body style="background-color: #f0f8ff;">
+<button class="print-button no-print" onclick="window.print()">印刷</button>
+<div class="claude-markdown-content">
+<h1 id="教職課程のための生成AI入門チャレンジ編">教職課程のための生成AI入門：チャレンジ編</h1>
+<h2 id="学習の目標と流れ">学習の目標と流れ</h2>
+<p>本日の授業では、以下の3つの目標に沿って生成AIについて学びます：</p>
+<ol>
+<li><strong>生成AIの基本を理解する</strong>：仕組みと特性を知る</li>
+<li><strong>生成AIとの対話を体験する</strong>：効果的な利用方法を実践する</li>
+<li><strong>教育への活用を考える</strong>：メリットと注意点を検討する</li>
+</ol>
+<p><strong>授業の流れ</strong>：</p>
+<ul>
+<li>導入（15分）：教員による生成AIの概要説明</li>
+<li>個人演習（30分）：基本的な対話体験と選択課題</li>
+<li>グループワーク（18分）：発見の共有とディスカッション</li>
+<li>まとめ（10分）：全体での共有とリフレクション</li>
+<li>次回予告（5分）</li>
+</ul>
+<hr/>
+<h2 id="課題1対話の基本全員必須10分">課題1：対話の基本（全員必須・10分）</h2>
+<h3 id="課題内容">課題内容</h3>
+<ol>
+<li>生成AIツール（ChatGPT, Claude, Gemini等）にアクセスする</li>
+<li>「あなたは何ができますか？」と質問してみる</li>
+<li>返答を読み、さらに「小学校や中学校の先生が授業準備をする際に、あなたはどのように役立ちますか？」と質問する</li>
+<li>応答の内容で興味を持った点について、さらに1つ質問を続ける</li>
+</ol>
+<p>※この課題はテキスト編の「2.2 対話型の利用方法」について実際に体験するものです。生成AIは一問一答ではなく、対話を重ねることでより具体的な回答を引き出せます。</p>
+<h3 id="メモするポイント">メモするポイント</h3>
+<ul>
+<li>対話を通じてどのように回答が具体化・深化したか</li>
+<li>予想外だった回答や気づき</li>
+<li>教育現場での活用アイデアで特に興味を持ったもの</li>
+</ul>
+<hr/>
+<h2 id="課題2プロンプトの工夫以下から1つ選択15分">課題2：プロンプトの工夫（以下から1つ選択・15分）</h2>
+<h3 id="A_教材作成支援">A) 教材作成支援</h3>
+<ol>
+<li>小学校または中学校の特定の教科・単元を選ぶ</li>
+<li>生成AIに「〇〇科の△△単元で使える導入教材のアイデアを3つ提案してください」と依頼する</li>
+<li>提案された内容から最も良いと思うものを選び、「そのアイデアをもう少し詳しく説明してください」と続ける</li>
+<li>さらに「この教材を使う際の注意点や工夫すべき点は何ですか？」と質問する</li>
+</ol>
+<p>※この課題はテキスト編の「3. 効果的なプロンプトの書き方」と「4.1 回答の改善を促す」を参照しながら取り組みましょう。</p>
+<h3 id="B_アイデア出し">B) アイデア出し</h3>
+<ol>
+<li>「小学校3年生の算数で、長さの単位（メートル、センチメートル、ミリメートル）を楽しく学べる活動のアイデアを3つ教えてください」と質問する</li>
+<li>生成された活動アイデアに対して、「この中で最も実現しやすいアイデアをさらに詳しく説明してください」と依頼する</li>
+<li>さらに「この活動を行う際の注意点は何ですか？」と質問を続ける</li>
+</ol>
+<p>※この課題はテキスト編の「4.2 複雑な質問の分割」と「4.3 明確なフィードバック」の技術を体験するものです。</p>
+<h3 id="メモするポイント">メモするポイント</h3>
+<ul>
+<li>最初の回答と追加質問後の回答の違い</li>
+<li>AIの回答を改善するために効果的だった質問の仕方</li>
+<li>教育実践に活用できそうなアイデア</li>
+</ul>
+<hr/>
+<h2 id="課題3体験から学ぶAIの特性全員必須10分">課題3：体験から学ぶAIの特性（全員必須・10分）</h2>
+<h3 id="パート1情報の信頼性評価5分">パート1：情報の信頼性評価（5分）</h3>
+<ol>
+<li>生成AIに「村上晋一教授の構成主義的学習理論と従来の認知主義的アプローチの主な違いを3つ挙げてください」と質問する</li>
+<li>回答を読み、「この村上教授の理論に関する最新の研究成果や批判的見解はありますか？」と続けて質問する</li>
+<li>AIの回答に対して「村上晋一教授の『学びのエコロジー』という著書は実際に存在しますか？確認方法を教えてください」と質問する</li>
+<li>最後に「あなたの回答の中に、実際には確証のない情報が含まれていた可能性はありますか？」と問いかける</li>
+</ol>
+<h3 id="パート2思考プロセスの比較5分">パート2：思考プロセスの比較（5分）</h3>
+<ol>
+<li>「小学4年生の理科『月の満ち欠け』を教える際の導入で大切なポイントを3つ考えてください」という課題について、まず自分自身で考え、メモする（2分）</li>
+<li>同じ質問を生成AIにし、回答を得る</li>
+<li>自分の考えとAIの回答を比較し、以下の点を考察する：</li>
+<ul>
+<li>どのような視点や発想の違いがあるか</li>
+<li>AIは簡単に回答できたが、自分が考えるのに苦労した点はあるか</li>
+<li>逆に、自分の考えには含まれていたが、AIの回答には欠けていた点はあるか</li>
+<li>AIに頼るだけでは得られないものは何か</li>
+</ul>
+</ol>
+<p>※この課題はテキスト編の「2.3 情報の真偽確認の重要性」と「6.3 教師としての成長と生成AI依存の問題」について実践的に学ぶためのものです。生成AIが事実と虚構を区別せずに回答を生成することがあることを体験します。</p>
+<h3 id="メモするポイント">メモするポイント</h3>
+<ul>
+<li>専門的・学術的に聞こえる情報でもAIが創作する可能性</li>
+<li>質問が具体的で詳細になるほど、事実確認が難しくなる傾向</li>
+<li>直接的に事実確認を求められたときのAIの応答パターン</li>
+<li>ハルシネーション（事実ではない情報の生成）が起きやすい質問のパターン</li>
+</ul>
+<hr/>
+<h2 id="課題4グループディスカッション全員参加18分">課題4：グループディスカッション（全員参加・18分）</h2>
+<h3 id="ディスカッション内容教材の5_教育現場での生成AIの活用方法と6_教育での活用における倫理的配慮を参考に">ディスカッション内容（教材の「5. 教育現場での生成AIの活用方法」と「6. 教育での活用における倫理的配慮」を参考に）</h3>
+<p><strong>前半（8分）</strong>：各自の課題体験の共有</p>
+<ul>
+<li>各自2分程度で、取り組んだ課題と発見した気づきを共有する</li>
+<li>特に印象的だった生成AIの回答や意外だった点について話し合う</li>
+</ul>
+<p><strong>後半（10分）</strong>：教育での活用と課題を考える</p>
+<ul>
+<li>以下のテーマについて話し合い、グループとしての考えをまとめる：</li>
+<ol>
+<li>生成AIが特に役立ちそうな教育場面はどこか</li>
+<li>教員が生成AIに頼りすぎると、どのような問題が生じる可能性があるか</li>
+<li>教員として生成AIと適切に付き合うためにはどうすべきか</li>
+</ol>
+</ul>
+<h3 id="グループワークのまとめ方">グループワークのまとめ方</h3>
+<ul>
+<li>3つのテーマについてグループの意見を簡潔にまとめる</li>
+<li>代表者が全体共有で発表できるよう準備する（1グループ2分程度）</li>
+</ul>
+<hr/>
+<h2 id="全体共有とリフレクション10分">全体共有とリフレクション（10分）</h2>
+<h3 id="全体共有5分">全体共有（5分）</h3>
+<ul>
+<li>各グループの代表者が発見や意見を簡潔に発表</li>
+<li>教員によるポイントの整理と補足</li>
+</ul>
+<h3 id="リフレクション5分">リフレクション（5分）</h3>
+<p>以下の問いについて考え、Googleクラスルームに投稿してください：</p>
+<ol>
+<li>今日の授業を通して、生成AIについて新たに学んだことは何ですか？</li>
+<li>教員として生成AIをどのように活用したいと思いますか？また、過度に依存しないためにどのような心がけが必要だと思いますか？</li>
+<li>今日の課題で自分で考えたものとAIの回答を比較してみて、気づいたことや考えたことを教えてください。AIに頼るだけではなく自分で考えることにどのような価値があると思いますか？</li>
+</ol>
+<p>※リフレクションを書く際は、教材の「8. まとめ：生成AIとの付き合い方」を参考にしながら、実際に体験した課題から得た気づきを含めましょう。</p>
+<hr/>
+<h2 id="次回予告生成AIを活用した授業設計">次回予告：生成AIを活用した授業設計</h2>
+<p>次回の授業では、今回学んだ基礎知識を踏まえて「生成AIを活用した授業設計」に取り組みます。</p>
+<p><strong>事前準備として</strong>：</p>
+<ol>
+<li>自分が担当したい教科・学年・単元について考えておく</li>
+<li>生成AIを使って、その単元に関するアイデアをいくつか試してみる</li>
+<li>今回学んだプロンプトの工夫を実践してみる</li>
+</ol>
+<p>次回はグループに分かれ、生成AIを活用した授業計画の立案と模擬授業の準備を行います。</p>
+</div>
+</body>
+</html>
