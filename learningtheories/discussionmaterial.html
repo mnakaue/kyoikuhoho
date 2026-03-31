@@ -1,0 +1,640 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'><style type='text/css'>html {overflow-x: initial !important;}</style>
+<style type='text/css'  id="style-base">:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+.mac-os-11 { --title-bar-height: 28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI Emoji", "SF Pro", sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.428571; overflow-x: hidden; background: inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p *, #write.first-line-indent svg * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-width: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-size-adjust: inherit; font-kerning: inherit; font-variant-alternates: inherit; font-variant-ligatures: inherit; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-feature-settings: inherit; font-optical-sizing: inherit; font-variation-settings: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; position: relative; }
+#write svg h1, #write svg h2, #write svg h3, #write svg h4, #write svg h5, #write svg h6, #write svg p { position: static; }
+svg sub, svg sup { position: static; }
+.nodeLabel p { padding-right: 2px; padding-left: 2px; }
+.typora-export .nodeLabel p { padding-right: 0px; padding-left: 0px; }
+foreignObject { overflow: visible; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+li p { orphans: 1; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; border-right-style: none; border-right-color: currentcolor; background-color: inherit; }
+.CodeMirror-linenumber { -webkit-user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: medium; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: medium !important; border-style: none !important; border-color: currentcolor !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; border-bottom-style: none; border-bottom-color: currentcolor; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: medium; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.mermaid-svg { margin: auto; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.428571rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left-width: 28px; border-left-style: solid; border-left-color: transparent; border-right-width: 28px; border-right-style: solid; border-right-color: transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right-width: 8px; border-right-style: solid; border-right-color: transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+.md-alert.md-alert-note { border-left-color: rgb(9, 105, 218); }
+.md-alert.md-alert-important { border-left-color: rgb(130, 80, 223); }
+.md-alert.md-alert-warning { border-left-color: rgb(154, 103, 0); }
+.md-alert.md-alert-tip { border-left-color: rgb(31, 136, 61); }
+.md-alert.md-alert-caution { border-left-color: rgb(207, 34, 46); }
+.md-alert { padding: 0px 1em; margin-bottom: 16px; color: inherit; border-left-width: 0.25em; border-left-style: solid; border-left-color: rgb(0, 0, 0); }
+.md-alert-text-note { color: rgb(9, 105, 218); }
+.md-alert-text-important { color: rgb(130, 80, 223); }
+.md-alert-text-warning { color: rgb(154, 103, 0); }
+.md-alert-text-tip { color: rgb(31, 136, 61); }
+.md-alert-text-caution { color: rgb(207, 34, 46); }
+.md-alert-text { font-size: 0.9rem; font-weight: 700; }
+.md-alert-text svg { fill: currentcolor; position: relative; top: 0.125em; margin-right: 1ch; overflow: visible; }
+.md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
+
+</style>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&amp;subset=latin,latin-ext' type='text/css' />
+<style type='text/css'  id="style-theme_css">:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', 'SF Pro', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    pre {
+        page-break-inside: avoid;
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.mac-os #write{
+    caret-color: AccentColor;
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+</style>
+<style type='text/css'  id="style-lp">ol, ul {padding-left: 40px}</style>
+<style type='text/css'  id="style-mac-print"> @media print { @page {margin: 0 0 0 0;} body.typora-export {padding-left: 0; padding-right: 0;} #write {padding:0;}}</style>
+
+<title>学習理論事例集討論用</title>
+</head>
+<body class='typora-export'><div class='typora-export-content'>
+<div id='write'  class=''><h1 id='学習理論事例集討論用'><span>学習理論事例集【討論用】</span></h1><h2 id='------この授業場面はどの学習理論で説明できるか------'><span>——この授業場面は、どの学習理論で説明できるか？——</span></h2><hr /><h2 id='この資料の使い方'><span>この資料の使い方</span></h2><p><span>この資料は、日本の学校教育における実際の授業場面を収録したものです。</span><strong><span>学習理論の名称はあえて記載していません。</span></strong></p><p><span>各事例を読みながら、以下の3点をグループで話し合ってください。</span></p><ol start='' ><li><p><strong><span>この授業場面に最もよく当てはまる学習理論はどれか</span></strong><span>（行動主義・構成主義・社会的構成主義・状況主義のうちから）</span></p></li><li><p><strong><span>そう考えた理由を、場面の具体的な描写を根拠として説明する</span></strong></p></li><li><p><strong><span>複数の理論が混在している部分があれば、それも指摘する</span></strong></p></li></ol><blockquote><p><span>⚠️ </span><strong><span>正解は一つとは限りません。大切なのは「なぜそう思うか」という根拠です。</span></strong>
+<span>グループ内で意見が分かれた場合も、その理由を記録してください。</span></p></blockquote><hr /><h2 id='参考4つの学習理論のキーワード'><span>参考：4つの学習理論のキーワード</span></h2><figure class='table-figure'><table><thead><tr><th><span>学習理論</span></th><th><span>代表的なキーワード</span></th></tr></thead><tbody><tr><td><span>行動主義</span></td><td><span>刺激→反応、強化、スモールステップ、即時フィードバック、反復練習</span></td></tr><tr><td><span>構成主義</span></td><td><span>スキーマ、同化・調節、認知的葛藤、仮説→検証、発見学習</span></td></tr><tr><td><span>社会的構成主義</span></td><td><span>ZPD、足場かけ、対話、協調学習、知識の共同構築</span></td></tr><tr><td><span>状況主義</span></td><td><span>実践共同体、正統的周辺参加、周辺的→十全的参加、暗黙知</span></td></tr></tbody></table></figure><hr /><h2 id='◆-メイン事例グループ討論用'><span>◆ メイン事例（グループ討論用）</span></h2><p><em><span>まずは以下の8事例に取り組んでください。時間が余ったグループは後半の「参考事例」に進みましょう。</span></em></p><hr /><h3 id='場面★1○をもらうたびにまた書きたくなる'><span>【場面★1】「○をもらうたびに、また書きたくなる」</span></h3><p><strong><span>学年・教科：</span></strong><span> 小学校3年生・国語</span></p><hr /><h4 id='この場面の前後の流れ'><span>この場面の前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>単元導入（前）</span></td><td><span>新出漢字の読み方・書き順・意味を教師が説明</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>漢字ドリル・ノートへの段階的な書き取り練習</span></strong></td></tr><tr><td><span>確認テスト（後）</span></td><td><span>小テスト・単元末テストで定着を確認</span></td></tr></tbody></table></figure><hr /><p><span>小学3年生の国語の時間。今週の新出漢字は「橋」「港」「島」「商」「章」など10字。今日はその前半5字を漢字ドリルで練習します。</span></p><p><span>田中みなみさんは「橋」のページを開きました。まずなぞり書き——薄いグレーの文字の上に鉛筆を走らせます。「は・し…」と口のなかで唱えながら丁寧になぞります。次は見本を見ながら書く欄。「木へんに……」と部首を確かめながら2回書きます。最後の欄は見本なし。少し迷いながらも思い出して書き上げます。これを5文字分繰り返して、今日の練習は完了です。</span></p><p><span>金曜日の朝、10問の漢字小テスト。「橋：川に大きな（　）がかかっている」というように、文の空欄に漢字を書き入れる形式です。終わったら隣の席と答案を交換して、赤鉛筆で○×をつける相互採点。8問正解のみなみさんのテスト用紙には「80点」のスタンプが押されて戻ってきます。2問間違えた字はノートに3回練習するのがクラスのルール。「来週は100点とる」という気持ちが、次の週の練習につながっています。</span></p><p><span>クラスで採用されている漢字ドリルは光文書院製。一字ごとに①なぞり書き→②見本あり→③見本なし、という段階で難易度が上がる設計になっています。全国の多くの小学校で同様の学習が日々行われています。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.kobun.co.jp/products/drill/'><span>漢字ドリル・計算ドリル（光文書院）</span></a>
+<span>→ 全国の小学校で使われているドリルの現物サンプルが確認できます。「なぞり書き→見本あり→見本なし」の構成が実物でわかる</span></p></li><li><p><a href='https://bso.benesse.ne.jp/miraiseed/products/drill/index.html'><span>ドリルパーク・ミライシード（Benesse）</span></a>
+<span>→ 紙ドリルのデジタル版。画面や機能を確認しながら、紙とデジタルで「何が同じで何が違うか」を考えてみよう</span></p></li></ul><hr /><h3 id='場面★2重くすれば速くなる------ほんとうに'><span>【場面★2】「重くすれば速くなる——ほんとうに？」</span></h3><p><strong><span>学年・教科：</span></strong><span> 小学校5年生・理科</span></p><hr /><h4 id='この場面の前後の流れ-2'><span>この場面の前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>問題把握（前）</span></td><td><span>ふりこが一往復する時間に興味をもち、問いを設定</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>「おもりを重くしたら速くなるか？」を予想・討論・実験</span></strong></td></tr><tr><td><span>まとめ（後）</span></td><td><span>「長さだけが関係する」と発見し、振り子時計の原理と結びつける</span></td></tr></tbody></table></figure><hr /><p><span>小学5年生の理科室。先生が天井から糸をたらし、おもりをぶらさげて見せました。「このふりこが一往復する時間は、何によって変わると思いますか？」</span></p><p><span>「重ければ速くなります！」と安藤りょうくんが自信満々に手を挙げます。「振れ幅が大きいほうが速い！」という声も続きます。先生が黒板に3つの条件を書きます——おもりの重さ、振れ幅、ひもの長さ。「どれが関係すると思うか、理由とともに予想してみよう」。班ごとに予想カードを書いて発表すると、クラスの大部分は「重さが関係する」に手を挙げました。</span></p><p><span>実験開始。100gと200gのおもりで交互に測ってみると——一往復の時間は変わらない。「え？」「なんで？」。次に振れ幅を変えると——これも変わらない。「やっぱりひもの長さだけ！？」。りょうくんはノートの予想に大きな×をつけてから、ゆっくり正しい答えを書き直しました。</span></p><p><span>「おもりを重くしたほうが速い」という日常感覚が完全に崩れた瞬間。次のページには「なぜ長さだけが影響するのか」という新しい疑問が書かれていました。</span></p><p><span>この授業は、1963年に板倉聖宣が開発した</span><strong><span>仮説実験授業</span></strong><span>の授業書『ふりこと振動』の流れを汲んでいます。「おもりの重さが関係するか？」「振れ幅が関係するか？」という問いを順に積み重ねながら、すべての条件を実験と討論で確かめていきます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-2'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://kyoiku.sho.jp/223611/'><span>小5理科「ふりこの運動」指導アイデア（みんなの教育技術）</span></a>
+<span>→ 板書計画・発問例・子どもの反応まで詳しく書かれています。「自分が授業するならどう問うか」をイメージしながら読んでみよう</span></p></li><li><p><a href='https://www.pref.kochi.lg.jp/doc/2020111100091/file_contents/file_20201125317749_1.pdf'><span>小学校第5学年 理科 学習指導案（高知県窪川小学校）</span></a>
+<span>→ 現場の先生が実際に書いた指導案（PDF）。授業の流れが分単位で書かれており、教材研究の具体的なイメージが湧く</span></p></li><li><p><a href='https://www.kasetsu.org/1_enjoy_kasetsu/what.html'><span>仮説実験授業研究会（公式）</span></a>
+<span>→ 板倉聖宣（1923-2007）が「子どもとはどう学ぶか」について語った教育哲学が一次資料で読めます。授業観が揺さぶられるかも</span></p></li></ul><hr /><h3 id='場面★3教えることで自分もわかっていく'><span>【場面★3】「教えることで、自分もわかっていく」</span></h3><p><strong><span>学年・教科：</span></strong><span> 小学校〜中学校・算数・数学（全教科に応用可能）</span></p><hr /><h4 id='この場面の前後の流れ-3'><span>この場面の前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>課題提示（前）</span></td><td><span>教師が単元目標・課題を提示する</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>全員が目標達成するよう、子ども同士が自由に教え合う</span></strong></td></tr><tr><td><span>振り返り（後）</span></td><td><span>達成度を確認し、次の課題へ</span></td></tr></tbody></table></figure><hr /><p><span>算数の時間、先生が黒板に問題を書いてから言いました。「今日の目標は、このプリントの全問題をクラス全員が解けるようになること。方法はなんでもいい」。それだけ言うと、先生は教室の後ろに移動して座ります。</span></p><p><span>最初の5分、教室は静かです。でもやがて、解けた子が立ち上がり、まだ手が止まっている子のそばに寄り始めます。「ここ、どうやったの？」と岡田まなみさんが隣の木村けんとくんに聞きます。けんとくんは答えながら、「あれ、なんで分母を揃えるんだっけ……」とつぶやきます。「共通の単位にするってこと？」「そうそう、それ」。説明しようとしたら、自分でも整理できた——という顔をしています。</span></p><p><span>教室のあちこちで似たようなやりとりが起きています。一人で黙々と取り組んでいる子もいます。先生は必要なときだけ声をかけます。授業の最後、全員が問題を解いたことを確認した先生が一言。「教えてもらった人——どうして解けるようになったか、誰かに説明できそう？」</span></p><p><span>この授業スタイルは、上越教育大学の西川純が提唱した</span><strong><span>「学び合い」</span></strong><span>の実践です。「できた子が教える」活動が、教える側の理解も深め、教わる側には仲間という「ちょうどよい足場」を提供します。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-3'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.shinko-keirin.co.jp/keirinkan/sho/sansu/support/jissen_arch/201503/'><span>「学び合い」（協同的な学び）で学力を向上させる（啓林館）</span></a>
+<span>→ 実際の授業の進め方と、学力向上の効果データが具体的に報告されています。「先生が後ろに座る」だけで本当に学力が上がるのか？</span></p></li><li><p><a href='https://jun24kawa.jimdofree.com/'><span>『学び合い』を学びたい方へ（西川純の部屋）</span></a>
+<span>→ 提唱者・西川純先生本人のブログ。教育観・子ども観がかなり独特で、読むと「授業とは何か」を考え直させられます</span></p></li></ul><hr /><h3 id='場面★4飛べた------その瞬間が次の一歩になる'><span>【場面★4】「飛べた！——その瞬間が次の一歩になる」</span></h3><p><strong><span>学年・教科：</span></strong><span> 小学校4年生・体育</span></p><hr /><h4 id='この場面の前後の流れ-4'><span>この場面の前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>単元導入（前）</span></td><td><span>教師が正しいフォームを実演してモデルを示す</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>段階的な練習台（補助具）を使いながら繰り返し跳ぶ</span></strong></td></tr><tr><td><span>技能確認（後）</span></td><td><span>目標の段数・種類を達成できたかを評価</span></td></tr></tbody></table></figure><hr /><p><span>体育館に跳び箱が4列並んでいます。今日の体育は4年生のとび箱運動、単元5時間目です。</span></p><p><span>石田ゆいさんは4段に挑戦中。先生のお手本を確認してから踏み切り板に向かいます。「腕を前に出して、しっかり押す！」という先生の声が聞こえています。</span></p><p><span>1回目——踏み切りがずれて失敗。「ゆいさん、踏み切る場所が遠すぎた。もう一歩前で踏み切ってみて」。先生がすぐに声をかけます。</span></p><p><span>2回目——ぎりぎり着地できました。「いいよ！ 腕もちゃんと伸びてた！」。その言葉で肩の力が抜けます。</span></p><p><span>3回目——また失敗。「次、腕をもっと前に出して……」とつぶやきながら列の後ろに並び直します。</span></p><p><span>そのうち、4回に1回成功だったのが、2回に1回になりました。成功体験が積み重なるにつれて、跳び箱に向かう顔が変わっていきます。できなかった子には、補助者がお腹を支えながら一緒に跳ぶ練習も行われています。</span></p><p><span>授業の最後、先生が聞きます。「5段に挑戦したい人は次の時間から」。ゆいさんは迷わず手を挙げていました。全国の小学校の体育技能系単元（とび箱・マット・水泳など）に共通して見られるパターンです。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-4'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.mext.go.jp/a_menu/shotou/new-cs/1384661.htm'><span>小学校学習指導要領解説 体育編（文部科学省）</span></a>
+<span>→ 体育の授業で「何をどの順に教えるか」を定めた公式ガイドブック。「なぜこの教え方が推奨されているのか」の根拠がここに書かれています</span></p></li></ul><hr /><h3 id='場面★5たし算で解けた------でももっとお皿が増えたら'><span>【場面★5】「たし算で解けた——でも、もっとお皿が増えたら？」</span></h3><p><strong><span>学年・教科：</span></strong><span> 小学校2年生・算数</span></p><hr /><h4 id='この場面の前後の流れ-5'><span>この場面の前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>既習（前）</span></td><td><span>「合わせていくつ？」という加法の概念（スキーマ）は習得済み</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>「3個ずつ乗ったお皿が4枚」を具体物・図・式で表現する</span></strong></td></tr><tr><td><span>九九習得（後）</span></td><td><span>意味が理解できたうえで九九を反復暗唱する</span></td></tr></tbody></table></figure><hr /><p><span>小学2年生の算数の時間。先生が絵カードを黒板に貼りました。1枚のお皿の上にいちごが3個。そのお皿が4枚並んでいます。「全部でいくつ？」「3＋3＋3＋3！」と田中ひろきくんがすぐに答えます。正解です。先生は「合ってる！」と言いながら、もうひとつカードを貼り足します——今度は同じお皿が10枚。</span></p><p><span>「……10まい分を全部たすの？」。ひろきくんの手が止まります。「3が10個だから……3＋3＋3…えっと……」。隣の席の子も数えながら指を折っています。</span></p><p><span>先生が言います。「これ、全部書いたら大変ね。もっと便利な書き方があるよ」。黒板に「3×4」と書いた瞬間、「×って何？」という声が一斉に上がります。「3のまとまりが4皿分、ということを表してるの」。おはじきを使って3個のかたまりを4グループ作り、「これが3×4」と示します。</span></p><p><span>ひろきくんは自分のノートに大きく「3×4＝12」と書きました。「あ、たし算より速い」——その顔には、何かが解けたときの表情が浮かんでいました。</span></p><p><span>具体物（おはじき）→図（アレイ図）→式（3×4）という段階的な抽象化を経て、子どもが自ら概念を構成していきます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-5'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.pref.saitama.lg.jp/documents/28005/minamikosigayasyo-sansusidouan.pdf'><span>第2学年 算数科学習指導案「九九をつくろう」（埼玉県）</span></a>
+<span>→ 本物の指導案（PDF）。「かけ算の意味」をどんな問いと教材で教えるか、授業の流れが分単位で書かれています。場面★5の授業がそのまま設計図として読めます</span></p></li></ul><hr /><h3 id='場面★6仕事はやってみて初めてわかる'><span>【場面★6】「仕事は、やってみて初めてわかる」</span></h3><p><strong><span>学年・教科：</span></strong><span> 中学校2年生・総合的な学習の時間（キャリア教育）</span></p><hr /><h4 id='この場面の前後の流れ-6'><span>この場面の前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>事前学習（2週間前）</span></td><td><span>希望職種の調査・電話でのアポイントメント・礼儀作法の練習</span></td></tr><tr><td><strong><span>★この場面（3〜5日間）</span></strong></td><td><strong><span>実際の職場で働く人と一緒に業務を体験する</span></strong></td></tr><tr><td><span>事後学習（翌週）</span></td><td><span>お礼状の作成・体験を全員が発表・キャリア設計シート記入</span></td></tr></tbody></table></figure><hr /><p><span>中学2年生の吉田さくらさんは、職場体験の3日間を地元の保育園で過ごしました。</span></p><p><span>1日目の午前、さくらさんは保育士さんの隣で子どもたちが遊ぶのを見守りながら、積み木を片付けたり、落ちたおもちゃを拾ったりしていました。保育士さんは声のかけ方・抱き上げ方・「泣き止ませ方」を、言葉での説明なしに体で見せてくれます。</span></p><p><span>2日目。「今日は絵本を読んであげてみて」。さくらさんは前日に練習した読み方で読み始めましたが、子どもたちはすぐに別の方向を向いてしまいます。保育士さんがそっとそばに来て、「ゆっくり、絵を見せながら読んで」と小声でアドバイス。試してみると、子どもたちが本の方を向き始めました。</span></p><p><span>3日目の午後。さくらさんは担当の子と砂場で遊びながら、自分でかかわりを考えて動けるようになっていました。</span></p><p><span>体験後の発表会でさくらさんは言いました。「保育の授業で習ったこととは、実際はぜんぜん違いました。でも違いがわかったのは、現場に行ったからだと思います」。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-6'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.mext.go.jp/a_menu/shotou/career/05010502/026.htm'><span>中学校職場体験ガイド（文部科学省）</span></a>
+<span>→ 現職教師が職場体験を設計するときに参照する公式マニュアル。事前・当日・事後の活動設計例が具体的に載っています</span></p></li><li><p><a href='https://www.jil.go.jp/institute/zassi/backnumber/2009/07/pdf/044-054.pdf'><span>職場体験の効果（日本労働研究雑誌）</span></a>
+<span>→ 「職場体験は本当にキャリア意識を高めるのか？」を調べた学術論文（PDF）。直感と異なる結果も出ていて、教育効果の「測り方」を考えさせられます</span></p></li></ul><hr /><h3 id='場面★7一人では読めなかった意味が話し合いで見えてきた'><span>【場面★7】「一人では読めなかった意味が、話し合いで見えてきた」</span></h3><p><strong><span>学年・教科：</span></strong><span> 中学校3年生・国語</span></p><hr /><h4 id='この場面の前後の流れ-7'><span>この場面の前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>単元前半（前）</span></td><td><span>「走れメロス」を通読し、初発の感想・疑問を書く</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>「メロスはなぜ友を裏切らなかったのか？」を多角的に読む（ジグソー法）</span></strong></td></tr><tr><td><span>単元まとめ（後）</span></td><td><span>再度通読し、冒頭の感想と比較してレポートを書く</span></td></tr></tbody></table></figure><hr /><p><span>中学3年生の国語。単元のテーマは「走れメロス」の多角的読解です。「メロスはなぜ、最後まで友を助けに戻ったのか？」——この問いに向かって、クラスはジグソー活動に入りました。</span></p><p><span>中村そうたくんはエキスパートAグループで「メロスの内的独白」を担当しました。砂漠でメロスが諦めかけ、自分を卑怯者と責める場面です。「ここ、メロスって本当にボロボロになってる……」。グループで読み合うと、「友情より疲弊の描写のほうが多い」という気づきが生まれます。</span></p><p><span>元の班に戻ったジグソー活動。そうたくんがA担当として説明すると、B（友情の描写）担当の松田さんが「でも、そのあとセリヌンティウスの顔を思い出した場面で急に走り出してる」と言います。C（王との対立）担当の渡辺さんは「最後のシーンは友情というより、王への意地だと思う」。「じゃあ、何が一番の理由？」と誰かが言いました。</span></p><p><span>一人で読んでいたときには出てこなかった解釈が、3つの視点が交差したことで浮かび上がってきました。そうたくんのノートには、最初に書いた「友情だから」に矢印が引かれ、その先に「疲弊＋意地＋友情？」と書き直されていました。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-7'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo3/053/siryo/__icsFiles/afieldfile/2015/03/24/1355105_05.pdf'><span>CoREF実践事例（文部科学省ヒアリング資料）</span></a>
+<span>→ この授業デザインが埼玉県の全139県立高校に広がった経緯と実践報告（PDF）。「本当に効くの？」という問いへの答えがデータとともに読めます</span></p></li><li><p><a href='https://coref.u-tokyo.ac.jp/archives/14883'><span>協調学習授業デザインハンドブック（東京大学CoREF）</span></a>
+<span>→ 自分でこのタイプの授業を設計したいときの「設計マニュアル」。課題の作り方・問いの立て方など、将来使える実践的な内容です</span></p></li></ul><hr /><h3 id='場面★8商店街の人たちが本当の先生だった'><span>【場面★8】「商店街の人たちが、本当の先生だった」</span></h3><p><strong><span>学年・教科：</span></strong><span> 中学校2〜3年生・総合的な学習の時間</span></p><hr /><h4 id='この場面の前後の流れ-8'><span>この場面の前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>課題発見（前）</span></td><td><span>地域の人と対話し「町の課題」を発見する</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>チームで課題解決プランを立案し、地域住民に提案・実施</span></strong></td></tr><tr><td><span>評価・発表（後）</span></td><td><span>実施結果を地域・保護者に報告、改善案を考える</span></td></tr></tbody></table></figure><hr /><p><span>中学2〜3年生の総合的な学習の時間。橋本みゆきさんのグループは、地元の商店街活性化をテーマにしたプロジェクトを1年かけて取り組んでいます。</span></p><p><span>最初の1か月、グループは商店街の空き店舗数を数えたり、インタビュー計画を立てたりしていました。初めての取材では、何を聞けばいいかわからず、準備してきた質問を棒読みするだけで終わりました（補助的・周辺的な関わり）。</span></p><p><span>転機は八百屋の山田さんとの会話でした。「学生さん、チラシ作るよりSNSで動画流したほうがお客さん来るよ」。みゆきさんたちには思いつかなかった提案でした。以来、グループは山田さんに毎週相談しながら企画を練り直します。</span></p><p><span>3か月後、グループは商店街のショートムービーを撮影・編集してSNSに投稿。地元のケーブルテレビに取材され、実際に来店者が増えた店が出てきました。</span></p><p><span>最終報告会でみゆきさんは言いました。「教室で考えた企画は最初全部ボツになりました。山田さんや商店街の人たちに教えてもらいながら変えていった計画が、本物だったと思います」。</span></p><p><span>地域住民・商店主・市役所職員などが「先輩実践者」として生徒の学びを支え、教室には持ち込めない「実社会で機能する知識」が、地域参加というリアルな文脈のなかで獲得されていきました。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-8'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.mext.go.jp/a_menu/shotou/sougou/20210422-mxt_kouhou02-1.pdf'><span>総合的な学習の時間の展開（文部科学省）</span></a>
+<span>→ 総合的な学習の時間をどう設計するかの公式ガイド。地域連携・PBL型の実践事例も掲載されており、「どの学校でもやれるのか？」を考えながら読むと面白い</span></p></li></ul><hr /><hr /><h2 id='◆-参考事例時間が余ったグループもっとやりたいグループ向け'><span>◆ 参考事例（時間が余ったグループ・もっとやりたいグループ向け）</span></h2><p><em><span>以下の14事例は、各自・グループのペースに合わせて取り組んでください。上の8事例と同じ問いで考えてみましょう。</span></em></p><hr /><h3 id='参考01｜小学校5年生理科仮説実験授業ものの溶け方'><span>参考01｜小学校5年生・理科：仮説実験授業「ものの溶け方」</span></h3><p><strong><span>学校種・教科：</span></strong><span> 小学校5年生・理科</span></p><h4 id='単元の文脈と前後の流れ'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>単元導入（前）</span></td><td><span>「ものが水に溶けるとはどういうことか」を問い、既有知識を確認</span></td></tr><tr><td><strong><span>★この場面①</span></strong></td><td><strong><span>「食塩を水に溶かすと重さはどうなるか？」を予想させる</span></strong></td></tr><tr><td><strong><span>★この場面②</span></strong></td><td><strong><span>予想の理由を発表・討論し、認知的葛藤を生む</span></strong></td></tr><tr><td><span>実験（後）</span></td><td><span>実験で確かめ、予想との差異から知識を再構成</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細'><span>授業場面の詳細</span></h4><p><span>教師は「食塩を水に溶かしたとき、溶ける前と後で全体の重さは変わるか？」という問いを提示します。</span></p><ul><li><p><span>多くの子どもは「溶けて見えなくなるから軽くなる」と予想します。</span></p></li><li><p><span>理由を発表し合うと、「いや、量は変わらないはず」「でも見えないよ？」と意見が対立し、</span><strong><span>認知的葛藤</span></strong><span>が生まれます。</span></p></li><li><p><span>討論が一段落したところで実験を行い、「溶けても重さは変わらない（質量保存）」という結果に出会います。</span></p></li><li><p><span>ここで多くの子どもが「え！？なぜ？」という驚きを経験し、</span><strong><span>スキーマの調節</span></strong><span>が起きます（物は溶けても消えるのではなく、見えない粒になって存在し続けるという粒子概念の芽生え）。</span></p></li></ul><p><strong><span>仮説実験授業</span></strong><span>は、1963年に板倉聖宣が開発した授業法で、「①問題提示→②予想（選択肢から選ぶ）→③予想の集計→④理由の発表・討論→⑤実験で確認」という流れを積み重ねます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-9'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www-p.fz.ocha.ac.jp/renkei/science/5-melt.html'><span>小5「ものの溶け方」（お茶の水女子大学附属小学校との連携研究）</span></a></p></li><li><p><a href='https://www.kasetsu.org/1_enjoy_kasetsu/what.html'><span>仮説実験授業研究会（公式）</span></a></p></li></ul><hr /><h3 id='参考02｜中学校3年生理科知識構成型ジグソー法電池のしくみ'><span>参考02｜中学校3年生・理科：知識構成型ジグソー法「電池のしくみ」</span></h3><p><strong><span>学校種・教科：</span></strong><span> 中学校3年生・理科</span></p><h4 id='単元の文脈と前後の流れ-2'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>単元前半（前）</span></td><td><span>イオンの概念・電気分解の仕組みを一斉授業で学習</span></td></tr><tr><td><strong><span>★この場面（第5次）</span></strong></td><td><strong><span>「電池のしくみ」を協調学習で解明</span></strong></td></tr><tr><td><span>まとめ（後）</span></td><td><span>個人で「問い」に対する答えをレポートにまとめ</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-2'><span>授業場面の詳細</span></h4><p><span>「電池はなぜ電気を取り出せるのか？」という問いをテーマに、</span><strong><span>知識構成型ジグソー法</span></strong><span>が実施されました。</span></p><p><strong><span>準備：</span></strong><span> 1班4人構成の10班を編成。A・B・Cの生徒がそれぞれ異なるエキスパート課題を担当します。</span></p><p><strong><span>エキスパート活動（約15分）：</span></strong></p><ul><li><p><span>E₁：「水溶液の導電性について調べる」（電解質と非電解質の違い）</span></p></li><li><p><span>E₂：「金属の塩化銅水溶液に対する溶け方の違いを調べる」（イオン化傾向）</span></p></li><li><p><span>E₃：「電池が電気を発生する仕組みを資料で読み取る」</span></p></li></ul><p><span>同じ課題を担当する生徒が集まり、実験結果を分析・整理し、他の班に説明できるよう理解を深めます。</span></p><p><strong><span>ジグソー活動（約20分）：</span></strong><span> 元の班に戻り、E₁・E₂・E₃それぞれの担当者が順番に説明し合います。「なぜ？」「それって●●と関係ある？」という対話を通じて、3つの視点が統合され「電池のしくみ」への理解が深まります。</span></p><p><strong><span>クロストーク（約10分）：</span></strong><span> 各班の答えをクラス全体で共有・比較し、理解をさらに精緻化します。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-10'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.shinko-keirin.co.jp/keirinkan/tea/chu/jissen/rika/201605/index.html'><span>アクティブ・ラーニングを取り入れた中学理科の授業実践（啓林館）</span></a></p></li><li><p><a href='https://ni-coref.or.jp/archives/5515'><span>CoREF（東京大学 CoREF）</span></a></p></li></ul><hr /><h3 id='参考03｜小学校2年生算数九九の暗唱とフラッシュカード'><span>参考03｜小学校2年生・算数：九九の暗唱とフラッシュカード</span></h3><p><strong><span>学校種・教科：</span></strong><span> 小学校2年生・算数</span></p><h4 id='単元の文脈と前後の流れ-3'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>かけ算の意味理解（前）</span></td><td><span>かけ算の意味（同数累加）を具体物・図で理解する</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>九九の唱え・フラッシュカード・アプリで反復暗唱</span></strong></td></tr><tr><td><span>活用（後）</span></td><td><span>文章題・計算問題でかけ算を使う</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-3'><span>授業場面の詳細</span></h4><p><span>小学2年生のかけ算単元では、意味を理解した後に、九九を</span><strong><span>完全に自動化するための反復練習</span></strong><span>が行われます。朝のルーティンとして九九を唱える、フラッシュカードで「6×8＝？」と問われたら瞬時に答えるなど、式の提示と回答の繰り返しが積み重ねられます。</span></p><p><span>近年はアプリ「九九道場」などデジタルツールも活用され、正答すると音や視覚的演出でフィードバックされます。間違えるとすぐに正解が示されます（即時フィードバック）。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-11'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.mext.go.jp/component/a_menu/education/micro_detail/__icsFiles/afieldfile/2019/03/18/1387017_004.pdf'><span>小学校算数・九九の指導（学習指導要領解説）</span></a></p></li></ul><hr /><h3 id='参考04｜小学校6年生算数円の面積問題解決型授業'><span>参考04｜小学校6年生・算数：「円の面積」問題解決型授業</span></h3><p><strong><span>学校種・教科：</span></strong><span> 小学校6年生・算数</span></p><h4 id='単元の文脈と前後の流れ-4'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>単元導入（前）</span></td><td><span>長方形・三角形・平行四辺形の面積公式を既習事項として確認</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>「丸い形の面積をどうやって求めるか？」を自力で考える</span></strong></td></tr><tr><td><span>共有（後）</span></td><td><span>複数の求め方を発表し比較、公式の意味を理解</span></td></tr><tr><td><span>適用（後）</span></td><td><span>公式を使って様々な問題を解く</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-4'><span>授業場面の詳細</span></h4><p><span>教師は円を提示し「この面積をどうやって求めますか？」と問います。子どもたちは既習の四角形・三角形の公式を使おうとします。しかし、円には直線の辺がないため、既有の知識が直接適用できずに葛藤が生まれます。</span></p><p><span>試行錯誤の末、①円を細かい扇形に分解して並べると長方形に近づく、②方眼紙で内部のマスを数える、などのアプローチが出てきます。クラスで発表・比較することで、「分割して既知の形に変換する」という汎用的な方略が構成されます。埼玉県の実践では、ICTを活用して子どもの多様な考えを共有することで深い学びを実現しています。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-12'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.pref.saitama.lg.jp/documents/251936/r5_syou_sansuu.pdf'><span>第6学年 算数科学習指導案（埼玉県立総合教育センター）</span></a></p></li></ul><hr /><h3 id='参考05｜小学校36年生中学校ai型ドリル教材の活用'><span>参考05｜小学校3〜6年生・中学校：AI型ドリル教材の活用</span></h3><p><strong><span>学校種・教科：</span></strong><span> 小学校3〜6年生・中学校全学年／国語・算数・数学・理科・英語（5教科）</span></p><h4 id='単元の文脈と前後の流れ-5'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>通常授業（前）</span></td><td><span>教師による一斉授業で新しい概念・解法を学ぶ</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>AI型ドリルで個別練習・定着（授業中・朝学習・家庭学習）</span></strong></td></tr><tr><td><span>振り返り（後）</span></td><td><span>教師が学習ログを確認し、つまずきのある児童生徒に個別フォロー</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-5'><span>授業場面の詳細</span></h4><p><span>東京都足立区では、2022年4月から区立全小中学校</span><strong><span>103校・約35,000人</span></strong><span>にAI型教材「Qubena（キュビナ）」を正式採用しています（小学校3〜6年・中学校全学年対象、5教科）。活用場面は</span><strong><span>授業中・朝学習・放課後補習・長期休業中の家庭学習</span></strong><span>と多岐にわたります。</span></p><p><span>このシステムは、一人ひとりの習熟状況をリアルタイムで分析し、その子のレベルに合った問題を自動的に提示します。問題に回答すると正誤に応じてすぐに次の問題の難易度が調整されます（即時フィードバック）。「ヒント」や「解説」機能があり、わからなくても自力で進められます。</span></p><p><span>実際の児童生徒からは「解き方がわからないときでも『ヒント』や『解説』を見て自分でどんどん進められる」「A〜Dで達成度が示されるので、結果が上がると達成感がある」といった声が報告されています。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-13'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.city.adachi.tokyo.jp/gaku-tei/k-kyoiku/kyoiku/ai-doriru.html'><span>足立区立全小・中学校へのAIドリル導入（足立区公式）</span></a></p></li><li><p><a href='https://www.learning-innovation.go.jp/db/ed0241/'><span>未来の教室・Qubena事例（経済産業省）</span></a></p></li></ul><hr /><h3 id='参考06｜小学校6年生社会科知識構成型ジグソー法東京オリンピックと戦後日本'><span>参考06｜小学校6年生・社会科：知識構成型ジグソー法「東京オリンピックと戦後日本」</span></h3><p><strong><span>学校種・教科：</span></strong><span> 小学校6年生・社会科</span></p><h4 id='単元の文脈と前後の流れ-6'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>単元前半（前）</span></td><td><span>敗戦〜高度経済成長期の流れを年表で確認</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>「1964年の東京オリンピックは日本にとってどんな意味があったか？」</span></strong></td></tr><tr><td><span>まとめ（後）</span></td><td><span>「もし自分が当時の人なら？」という視点でレポート作成</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-6'><span>授業場面の詳細</span></h4><p><span>「東京オリンピックは日本の戦後復興にとってどのような意味をもったのか？」という問いに対し、3グループのエキスパート活動が行われます。</span></p><ul><li><p><span>エキスパートA：経済的側面（高速道路・新幹線建設などインフラ整備）</span></p></li><li><p><span>エキスパートB：外交・国際的側面（国際社会への復帰・国家ブランドの回復）</span></p></li><li><p><span>エキスパートC：国民意識・社会的側面（高度成長期の国民の意識変化）</span></p></li></ul><p><span>ジグソー活動では3つの視点を持ち寄り、「オリンピックの意味」を多角的に語り合います。一人では持てなかった複眼的な歴史認識が、対話を通じて共同で形成されます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-14'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://kyoiku.sho.jp/279775/'><span>「知識構成型ジグソー法」とは？（みんなの教育技術）</span></a></p></li></ul><hr /><h3 id='参考07｜中学校理科探究学習課題設定から結論まで'><span>参考07｜中学校・理科：探究学習「課題設定から結論まで」</span></h3><p><strong><span>学校種・教科：</span></strong><span> 中学校・理科</span></p><h4 id='単元の文脈と前後の流れ-7'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>課題発見（前）</span></td><td><span>日常現象への気づきから「問い」を設定する</span></td></tr><tr><td><strong><span>★この場面①</span></strong></td><td><strong><span>「なぜそうなるか」の仮説を自分で立てる</span></strong></td></tr><tr><td><strong><span>★この場面②</span></strong></td><td><strong><span>条件を制御した実験計画を立案・実施する</span></strong></td></tr><tr><td><span>考察（後）</span></td><td><span>結果を分析し、仮説を検証・修正して結論を記述</span></td></tr><tr><td><span>発表（後）</span></td><td><span>探究の成果をクラスで共有・相互評価</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-7'><span>授業場面の詳細</span></h4><p><span>中学校学習指導要領では、理科の探究活動として「問題の把握→仮説の設定→実験計画の立案→観察・実験→結果の処理→考察→結論」という一連のプロセスが重視されています。</span></p><p><span>例えば「酸とアルカリを混ぜると何が起きるか？」という単元では、①「どんな結果になるか？」を予想し根拠を書く、②実験条件（酸の種類・濃度）を変えて計画を立てる、③実験を行い結果をグラフ化する、④「なぜこうなったか？」を考察するという流れです。答えを教えるのではなく、子どもが自らの手で知識を構成していきます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-15'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.manabi.wakayama-c.ed.jp/kenkyukiyo/R2/R2_6.pdf'><span>理科における探究活動（和歌山県総合教育センター研究報告）</span></a></p></li><li><p><a href='https://www.mext.go.jp/a_menu/shotou/new-cs/youryou/chu/ri.htm'><span>中学校学習指導要領 理科（文部科学省）</span></a></p></li></ul><hr /><h3 id='参考08｜小学校34年生社会科スーパーマーケット見学'><span>参考08｜小学校3〜4年生・社会科：スーパーマーケット見学</span></h3><p><strong><span>学校種・教科：</span></strong><span> 小学校3〜4年生・社会科</span></p><h4 id='単元の文脈と前後の流れ-8'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>事前学習（前）</span></td><td><span>「スーパーにはどんな工夫があるか」を予想し、調べる視点を設定</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>スーパーマーケットを訪問し、従業員に取材・バックヤードを見学</span></strong></td></tr><tr><td><span>事後学習（後）</span></td><td><span>気づきを整理・新聞形式でまとめ・発表</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-8'><span>授業場面の詳細</span></h4><p><span>「わたしたちの消費生活」の単元では、教科書での学習だけでなく、実際にスーパーマーケットを訪問します。見学では、①売り場の商品配置の工夫、②バックヤードでの鮮魚・肉のカット作業、③冷蔵倉庫、④レジシステムなどを見せてもらいながら、従業員に質問します。</span></p><p><span>「なぜこの商品はここに置いているんですか？」「一日何人のお客さんが来ますか？」という子どもの質問に、現場のプロが答えてくれます。教室の教科書には書いていない「生きた知識」（働く人の思い・仕事の難しさ・工夫）が体験的に得られます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-16'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://researchmap.jp/shoichi-tamoto/published_papers/36655076/'><span>正統的周辺参加に基づいた学び（山口大学）</span></a></p></li><li><p><a href='https://navymule9.sakura.ne.jp/060623SL.html'><span>状況的学習（Situated Learning）解説</span></a></p></li></ul><hr /><h3 id='参考09｜中学校2年生社会科知識構成型ジグソー法自由民権運動の多面的考察'><span>参考09｜中学校2年生・社会科：知識構成型ジグソー法「自由民権運動の多面的考察」</span></h3><p><strong><span>学校種・教科：</span></strong><span> 中学校2年生・社会科（歴史）</span></p><h4 id='単元の文脈と前後の流れ-9'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>単元前半（前）</span></td><td><span>明治政府の形成・富国強兵・殖産興業を学ぶ</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>「自由民権運動はなぜ広がったのか？」を多角的に考察</span></strong></td></tr><tr><td><span>単元まとめ（後）</span></td><td><span>大日本帝国憲法・帝国議会の成立との関係を理解</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-9'><span>授業場面の詳細</span></h4><p><span>「自由民権運動はなぜ広がり、どのような意義をもったのか？」という問いに対して、3つの視点でエキスパート活動を行います。</span></p><ul><li><p><span>エキスパートA：士族の不満と民権運動（征韓論争・西南戦争後の動向）</span></p></li><li><p><span>エキスパートB：農民・商工業者の参加（民権思想の地方への広がり・演説会）</span></p></li><li><p><span>エキスパートC：政府の対応と憲法制定への道（集会条例・大阪会議・国会開設の勅諭）</span></p></li></ul><p><span>ジグソー活動で3視点を統合し、「民権運動は士族だけでなく農民にも広がっていた」「政府も無視できず、最終的に憲法制定へ向かった」という複合的な理解が生まれます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-17'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://ni-coref.or.jp/archives/17626'><span>CoREF 協調学習実践事例一覧</span></a></p></li></ul><hr /><h3 id='参考10｜小学校5年生総合地域の農家と連携した田植え稲刈り体験'><span>参考10｜小学校5年生・総合：地域の農家と連携した田植え・稲刈り体験</span></h3><p><strong><span>学校種・教科：</span></strong><span> 小学校5年生・総合的な学習の時間</span></p><h4 id='単元の文脈と前後の流れ-10'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>事前学習（前）</span></td><td><span>米づくりの歴史・農業の仕組みを教室で学ぶ</span></td></tr><tr><td><strong><span>★この場面（5月）</span></strong></td><td><strong><span>地域の農家の指導のもと、実際の田んぼで田植えを体験</span></strong></td></tr><tr><td><span>中間（夏〜秋）</span></td><td><span>定期的に田んぼを訪問し、成長の観察記録をつける</span></td></tr><tr><td><strong><span>★この場面（10月）</span></strong></td><td><strong><span>稲刈り体験・脱穀・収穫祭への参加</span></strong></td></tr><tr><td><span>事後学習（後）</span></td><td><span>農家の方を招いた発表会・食育との連携</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-10'><span>授業場面の詳細</span></h4><p><span>地域の農家が「先生（熟練した実践者）」となり、子どもたちに田植えの手本を見せながら一緒に作業します。「苗はこの角度で植えるんよ」「足をこうやって抜かないと抜けんで」という、マニュアルには書けない暗黙知が現場で伝えられます。</span></p><p><span>子どもたちは最初は泥だらけになりながら不格好に植えます（周辺的参加）が、農家のアドバイスを受けながら徐々に上達します。収穫期になると、「自分たちが育てたお米を食べる」という経験が学習の意味を最大化します。</span></p><p><span>農業という「場」に参加することで、農作業の知識・季節感・食への感謝・農家の苦労・地域とのつながりが一体的に学ばれます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-18'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.jstage.jst.go.jp/article/soshikikagaku/48/2/48_38/_pdf'><span>正統的周辺参加論（J-STAGE・佐伯胖）</span></a></p></li></ul><hr /><h3 id='参考11｜中学校1年生社会科対話型授業鎌倉幕府崩壊の要因を分析する'><span>参考11｜中学校1年生・社会科：対話型授業「鎌倉幕府崩壊の要因を分析する」</span></h3><p><strong><span>学校種・教科：</span></strong><span> 中学校1年生・社会科（歴史）</span></p><h4 id='単元の文脈と前後の流れ-11'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>単元前半（前）</span></td><td><span>鎌倉幕府の成立・御恩と奉公の仕組みを学ぶ</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>「なぜ鎌倉幕府は滅んだのか？」をICTで協働分析</span></strong></td></tr><tr><td><span>単元まとめ（後）</span></td><td><span>室町幕府との比較・武家政権の歴史的流れを理解</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-11'><span>授業場面の詳細</span></h4><p><span>「鎌倉幕府崩壊の要因は何か？」という問いに対し、班ごとに異なる視点（①御家人の不満、②元寇の影響、③後醍醐天皇の動き）を担当したエキスパートが調べ、協働ソフトにまとめます。ジグソー活動で3つの視点を持ち寄り、「どれが最大の要因か？」を議論します。</span></p><p><span>ICTを活用して各自の考えをリアルタイムで共有しながら、個人の分析をクラス全体の議論へと発展させます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-19'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.manabinoba.com/class_reports/015744.html'><span>知識構成型ジグソー法を用いた協調学習授業（学びの場.com）</span></a></p></li></ul><hr /><h3 id='参考12｜中学校高校課外活動部活動------役割の移行と参加の深まり'><span>参考12｜中学校〜高校・課外活動：部活動——役割の移行と参加の深まり</span></h3><p><strong><span>学校種・教科：</span></strong><span> 中学校〜高校・課外活動（部活動）</span></p><h4 id='単元の文脈と前後の流れ-12'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>入部時（周辺的参加）</span></td><td><span>先輩の練習を見学・ボール拾い・後片付けなど補助的役割</span></td></tr><tr><td><strong><span>★この場面（中期）</span></strong></td><td><strong><span>レギュラー争い・試合への出場・後輩への指導</span></strong></td></tr><tr><td><span>引退前（十全的参加）</span></td><td><span>チームのリーダー・主将として練習メニューを立案・指導</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-12'><span>授業場面の詳細</span></h4><p><span>野球部を例にとると、1年生は「雑用係」から始まり、先輩の練習を間近で見ながら技術や雰囲気（その集団の文化）を吸収します。2年生になるとレギュラーを目指し、より責任のある役割を担います。3年生の主将になると練習メニューを考え、後輩を指導する立場になります。</span></p><p><span>このプロセスは、仕立屋の徒弟がボタン付けから始まり、縫製・裁断へと役割を広げていく構造と重なります。単なるスキル習得ではなく、「野球部員としてのアイデンティティ」も同時に形成されます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-20'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.gsis.kumamoto-u.ac.jp/opencourses/pf/3Block/09/09-1_text.html'><span>正統的周辺参加と足場づくり（熊本大学教育学部）</span></a></p></li></ul><hr /><h3 id='参考13｜小中学校道徳対話型道徳授業'><span>参考13｜小・中学校・道徳：対話型道徳授業</span></h3><p><strong><span>学校種・教科：</span></strong><span> 小学校〜中学校・道徳</span></p><h4 id='単元の文脈と前後の流れ-13'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>資料読み（前）</span></td><td><span>道徳的な場面を含む読み物資料を個人で読み解釈する</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>「あなたならどうするか？」について少人数で対話する</span></strong></td></tr><tr><td><span>全体議論（後）</span></td><td><span>異なる価値観を全体で共有し、自分の考えを再考する</span></td></tr><tr><td><span>振り返り（後）</span></td><td><span>対話前と対話後の考えの変化を書く</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-13'><span>授業場面の詳細</span></h4><p><span>例えば「友達がルールを破っているのを見たらどうするか？」というテーマで、各自が意見を書いた後、小グループで対話します。「自分だったら正直に言う」「でも関係が壊れるかもしれない」「言わないのも友達のため」という価値観の対立が生まれます。</span></p><p><span>対話後に全体共有を行うと、「正直」と「思いやり」の両立という複雑な倫理的理解が生まれます。対話前には持っていなかった観点を、他者との相互作用によって「内化」していくプロセスです。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-21'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://moanavi.com/303'><span>発達の最近接領域（ZPD）とは？（MOANAVI）</span></a></p></li></ul><hr /><h3 id='参考14｜小学校56年生家庭科調理実習ご飯と味噌汁をつくろう'><span>参考14｜小学校5〜6年生・家庭科：調理実習「ご飯と味噌汁をつくろう」</span></h3><p><strong><span>学校種・教科：</span></strong><span> 小学校5〜6年生・家庭科</span></p><h4 id='単元の文脈と前後の流れ-14'><span>単元の文脈と前後の流れ</span></h4><figure class='table-figure'><table><thead><tr><th><span>フェーズ</span></th><th><span>活動</span></th></tr></thead><tbody><tr><td><span>事前学習（前）</span></td><td><span>食材・栄養・調理の手順を教室で学ぶ</span></td></tr><tr><td><strong><span>★この場面</span></strong></td><td><strong><span>実際に調理器具・食材を使い、チームでご飯・味噌汁を作る</span></strong></td></tr><tr><td><span>振り返り（後）</span></td><td><span>自分の役割・協力の仕方・改善点を振り返り、次の調理に活かす</span></td></tr></tbody></table></figure><h4 id='授業場面の詳細-14'><span>授業場面の詳細</span></h4><p><span>小学校家庭科の調理実習では、役割分担（米を洗う係・だしをとる係・味噌汁の具を切る係）をしながら、実際の調理環境（コンロ・包丁・食器）のなかで協力して料理をつくります。</span></p><p><span>「教科書通りにやっているのに米が硬い」「だしをとる時間が短かった」などの失敗が学習の契機となります。熟練した調理技術（包丁の使い方・火加減）は「言葉での説明」だけでは習得できず、実際に手を動かしながら体で覚えていきます（身体知・暗黙知の獲得）。</span></p><p><span>調理という「場」のなかで、教科書には書かれていない「勘」「コツ」「段取り」が体験的に学ばれます。</span></p><hr /><p><strong><span>📝 討論メモ</span></strong></p><ul><li><p><span>当てはまると思う学習理論：</span></p></li><li><p><span>その理由（授業場面の具体的な描写を根拠として）：</span></p></li><li><p><span>複数の理論が混在していると思う場合は：</span></p></li></ul><hr /><h4 id='📎-出典・参考リンク（討論が終わったら確認しましょう）-22'><span>📎 出典・参考リンク（討論が終わったら確認しましょう）</span></h4><ul><li><p><a href='https://www.mext.go.jp/a_menu/shotou/new-cs/1384661.htm'><span>小学校 家庭科 学習指導要領解説（文部科学省）</span></a></p></li></ul><hr /><hr /><h2 id='授業者用メモ難易度と使い方のガイド'><span>【授業者用メモ】難易度と使い方のガイド</span></h2><blockquote><p><span>以下は授業者のみ参照。学生への配布版には不要であれば削除してください。</span></p></blockquote><h3 id='メイン事例8件の位置づけ'><span>メイン事例8件の位置づけ</span></h3><figure class='table-figure'><table><thead><tr><th><span>#</span></th><th><span>場面タイトル</span></th><th><span>事例内容</span></th><th><span>想定される正答</span></th><th><span>難易度</span></th><th><span>議論ポイント</span></th></tr></thead><tbody><tr><td><span>1</span></td><td><span>○をもらうたびに</span></td><td><span>漢字ドリル</span></td><td><span>行動主義</span></td><td><span>★☆☆</span></td><td><span>反復・即時フィードバック・スモールステップが揃う典型例</span></td></tr><tr><td><span>2</span></td><td><span>重くすれば速くなる</span></td><td><span>ふりこのきまり</span></td><td><span>構成主義</span></td><td><span>★★☆</span></td><td><span>予想と実験結果のズレ（認知的葛藤）がポイント</span></td></tr><tr><td><span>3</span></td><td><span>教えることで</span></td><td><span>学び合い</span></td><td><span>社会的構成主義</span></td><td><span>★★☆</span></td><td><span>「仲間による足場かけ」がポイント。行動主義（強化）と混同に注意</span></td></tr><tr><td><span>4</span></td><td><span>飛べた！</span></td><td><span>跳び箱</span></td><td><span>行動主義</span></td><td><span>★☆☆</span></td><td><span>補助は「足場かけ」？社会的構成主義との違いも議論できる</span></td></tr><tr><td><span>5</span></td><td><span>たし算で解けた</span></td><td><span>かけ算の意味</span></td><td><span>構成主義</span></td><td><span>★★☆</span></td><td><span>場面3（九九）と対比させると「意味理解vs反復定着」の対比が鮮明</span></td></tr><tr><td><span>6</span></td><td><span>仕事は現場で</span></td><td><span>職場体験</span></td><td><span>状況主義</span></td><td><span>★★☆</span></td><td><span>周辺的参加→十全的参加の軌跡が明確。「場」への参加がキー</span></td></tr><tr><td><span>7</span></td><td><span>一人では読めなかった</span></td><td><span>走れメロス（ジグソー）</span></td><td><span>社会的構成主義</span></td><td><span>★★☆</span></td><td><span>ジグソー＋対話で解釈を共同構築。構成主義と混同しやすい</span></td></tr><tr><td><span>8</span></td><td><span>商店街の人が先生</span></td><td><span>地域PBL</span></td><td><span>状況主義</span></td><td><span>★★★</span></td><td><span>社会的構成主義（協調学習）との識別が論点。実践共同体参加がキー</span></td></tr></tbody></table></figure><p><strong><span>理論別の配置（8件）：行動主義 2件（1・4）／構成主義 2件（2・5）／社会的構成主義 2件（3・7）／状況主義 2件（6・8）</span></strong>
+<strong><span>難易度：★☆☆ × 2件 ／ ★★☆ × 5件 ／ ★★★ × 1件</span></strong></p><hr /><h3 id='参考事例14件の位置づけ'><span>参考事例14件の位置づけ</span></h3><figure class='table-figure'><table><thead><tr><th><span>参考#</span></th><th><span>事例内容</span></th><th><span>想定される正答</span></th><th><span>難易度</span></th><th><span>議論ポイント</span></th></tr></thead><tbody><tr><td><span>01</span></td><td><span>ものの溶け方</span></td><td><span>構成主義</span></td><td><span>★★☆</span></td><td><span>討論場面を社会的構成主義と混同しやすい</span></td></tr><tr><td><span>02</span></td><td><span>電池のしくみ（ジグソー）</span></td><td><span>社会的構成主義</span></td><td><span>★★☆</span></td><td><span>メイン2・参考07との対比が有効</span></td></tr><tr><td><span>03</span></td><td><span>九九の暗唱</span></td><td><span>行動主義</span></td><td><span>★☆☆</span></td><td><span>メイン1・4と対で使うと行動主義の典型を確認できる</span></td></tr><tr><td><span>04</span></td><td><span>円の面積</span></td><td><span>構成主義</span></td><td><span>★★☆</span></td><td><span>発表場面を社会的構成主義と混同しやすい</span></td></tr><tr><td><span>05</span></td><td><span>AIドリル</span></td><td><span>行動主義</span></td><td><span>★☆☆</span></td><td><span>フィードバック・スモールステップが鍵。メイン1・4との対比も</span></td></tr><tr><td><span>06</span></td><td><span>東京五輪（ジグソー）</span></td><td><span>社会的構成主義</span></td><td><span>★★☆</span></td><td><span>歴史的判断の「共同構築」がポイント</span></td></tr><tr><td><span>07</span></td><td><span>探究学習（理科）</span></td><td><span>構成主義</span></td><td><span>★★☆</span></td><td><span>発表場面があるため社会的構成主義と迷う可能性</span></td></tr><tr><td><span>08</span></td><td><span>スーパー見学</span></td><td><span>状況主義</span></td><td><span>★★★</span></td><td><span>構成主義（発見学習）と迷いやすい好事例</span></td></tr><tr><td><span>09</span></td><td><span>自由民権運動（ジグソー）</span></td><td><span>社会的構成主義</span></td><td><span>★★☆</span></td><td><span>参考02・06と同系列</span></td></tr><tr><td><span>10</span></td><td><span>田植え体験</span></td><td><span>状況主義</span></td><td><span>★★★</span></td><td><span>「農家＝熟練した実践者」という実践共同体への参加</span></td></tr><tr><td><span>11</span></td><td><span>鎌倉幕府（対話型）</span></td><td><span>社会的構成主義</span></td><td><span>★★☆</span></td><td><span>ICT活用が加わっても理論は変わらない</span></td></tr><tr><td><span>12</span></td><td><span>部活動</span></td><td><span>状況主義</span></td><td><span>★★★</span></td><td><span>社会的構成主義（足場かけ）との区別が議論になる</span></td></tr><tr><td><span>13</span></td><td><span>対話型道徳</span></td><td><span>社会的構成主義</span></td><td><span>★★★</span></td><td><span>状況主義（コミュニティ参加）と混同しやすい</span></td></tr><tr><td><span>14</span></td><td><span>調理実習</span></td><td><span>状況主義（混在）</span></td><td><span>★★★</span></td><td><span>意図的に複数理論が混在。締めくくりの総合的議論に最適</span></td></tr></tbody></table></figure><p><strong><span>★☆☆ = 比較的識別しやすい　★★☆ = 適度に考察が必要　★★★ = 複数の解釈が成立しやすい（議論に向いている）</span></strong></p><hr /><h3 id='使用上のヒント'><span>使用上のヒント</span></h3><p><span>メイン事例は</span><strong><span>行動主義・構成主義・社会的構成主義・状況主義が2件ずつ</span></strong><span>、難易度は</span><strong><span>やさしいものから順に配置</span></strong><span>されています。隣り合う事例は同じ理論が続かないよう設計しており（B→C→S→B→C→L→S→L）、比較しながら議論しやすい順番になっています。</span></p><p><span>参考事例は、理論同士を比較・対話する深い議論に向いています。特に参考14（調理実習）は意図的に複数理論が混在する設計で、すべての事例を扱った後の総合的な議論に最適です。</span></p><p><em><span>本資料は「学習理論事例集.md」から学習理論ラベルを除き、授業討論用に再構成したバージョンです。正答・解説は「学習理論事例集.md」および「学習理論識別ワーク_謎版.md」を参照してください。</span></em></p></div></div>
+</body>
+</html>
